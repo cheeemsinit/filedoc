@@ -1,0 +1,10 @@
+create database railsystem;
+use railsystem;
+create table user(Uname varchar(25) not null , Age int not null, gender varchar(10) ,adharid varchar(15)); 
+select * from user;
+create table paymentvia(cash int , card int );
+select * from paymentvia;
+create table ticket(booking_date date not null,type varchar(25),seat_number int ,amount int );
+desc ticket;
+create table train(route varchar(100) ,Trno varchar(10) ,destination varchar(100));
+desc train;

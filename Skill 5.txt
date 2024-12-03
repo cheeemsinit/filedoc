@@ -1,0 +1,71 @@
+Q1. Create a python prog to create table employee and dept as follows: 
+Employee : Eid ,name, age,salary , Did Dept : Did,dname 
+Add sufficient records in both tables . Display records to those employees is working in sales dept and age betwn 30-40
+
+----CODE-----
+cur=myconn.cursor()
+dbs=cur.execute("create table Dept(did int(10) not null primary key,dname varchar(20) not null)")
+
+for i in range(3):
+    did= int(input("Enter Dept ID:"))
+    dname= input("Enter Dept Name:")
+    rec= (did,dname)
+    cur.execute("insert into Dept(did,dname)values(%s,%s)",rec)
+    myconn.commit()
+
+dbs=cur.execute("select * from Dept")
+result=cur.fetchall()
+
+for i in result:
+    print(i) 
+
+dbs=cur.execute("create table Emp(eid int(10) not null primary key,ename varchar(20) not null,age int(10),salary int(10) not null,did int(10) not null, foreign key(did) references dept(did))")
+
+for i in range(3):
+    eid= int(input("Enter Employee ID:"))
+    ename= input("Enter Employee Name:")
+    age=int(input("Enter Age:"))
+    salary=int(input("Enter Salary:"))
+    did= int(input("Enter Dept Id:"))
+    rec= (eid,ename,age,salary,did)
+    cur.execute("insert into Emp(eid,ename,age,salary,did)values(%s,%s,%s,%s,%s)",rec)
+    myconn.commit()
+dbs=cur.execute("select * from Emp")
+result=cur.fetchall()
+
+for i in result:
+    print(i) 
+
+dbs=cur.execute("select ename,age,salary,dname from Emp,Dept where emp.did=dept.did and dept.dname='abc' and emp.age between 20 and 22")
+result=cur.fetchall()
+
+for i in result:
+    print(i) 
+
+
+Q2 Create a python program to accept and add student education details in mysql database table and display records of those students, who have secured first class in grad
+
+cur=myconn.cursor()
+
+dbs=cur.execute("create table Stud(sid int(10) not null primary key,sname varchar(20) not null,qual varchar(10), cls varchar(10) not null)")
+
+for i in range(3):
+    sid= int(input("Enter Student ID:"))
+    sname= input("Enter Student Name:")
+    qual=input("Enter if Graduate:")
+    cls=input("Enter Class:")
+    rec= (sid,sname,qual,cls)
+    cur.execute("insert into Stud(sid,sname,qual,cls)values(%s,%s,%s,%s)",rec)
+    myconn.commit()
+
+dbs=cur.execute("select * from Stud")
+result=cur.fetchall()
+for i in result:
+    print(i) 
+
+
+dbs=cur.execute("select * from stud where qual='graduate' and cls='first' ")
+result=cur.fetchall()
+
+for i in result:
+    print(i) 
